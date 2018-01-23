@@ -184,8 +184,20 @@
     if (attributeTitle == nil) {
         attributeTitle = [[NSAttributedString alloc] initWithString:@"" attributes:self.pickerTextAttributes];
     }
+    
+    NSMutableParagraphStyle *paragraphStyle = [[NSMutableParagraphStyle alloc] init];
+    paragraphStyle.lineBreakMode = NSLineBreakByWordWrapping;
+    [attributeTitle addAttribute:NSParagraphStyleAttributeName value:paragraphStyle range:NSMakeRange(0, [attributeTitle length])];
+
     pickerLabel.attributedText = attributeTitle;
+    pickerLabel.lineBreakMode = NSLineBreakByWordWrapping;
+    pickerLabel.numberOfLines = 2;
+
     return pickerLabel;
+}
+
+- (CGFloat)pickerView:(UIPickerView *)pickerView rowHeightForComponent:(NSInteger)component {
+    return 60;
 }
 
 - (CGFloat)pickerView:(UIPickerView *)pickerView widthForComponent:(NSInteger)component {

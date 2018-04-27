@@ -191,7 +191,13 @@
     
     pickerLabel.attributedText = attributeTitle;
     pickerLabel.lineBreakMode = NSLineBreakByWordWrapping;
-    pickerLabel.numberOfLines = 2;
+    if(self.titleNumberOfLines != nil){
+        // set minimum number of lines is 1. Max(x,1) to filter out negative and 0 values.
+        pickerLabel.numberOfLines = MAX([self.titleNumberOfLines integerValue],1); 
+    }else{
+        // For legacy support. hardcoded as 2 so if we don't set anything, assign numberOfLines = 2
+        pickerLabel.numberOfLines = 2;
+    }
     
     return pickerLabel;
 }
